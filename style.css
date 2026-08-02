@@ -6,3 +6,39 @@ body {
     width: 1000px;
     margin: 0 auto;
 }
+
+a {
+    color: #5865F2;              /* 藍色文字 */
+    text-decoration: none;       /* 無底線 */
+    background-color: #E7EAFD;   /* Discord 風格淺藍背景 */
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+a:hover {
+    color: white;
+    background-color: #4752C4;   /* 深藍 */
+}
+
+.青天 {
+    color: #0000AA;
+}
+
+.back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    color: #FFFFFF;
+    background-color: #0000AA;
+    text-decoration: none;
+    padding: 2px 5px;
+    border-radius: 5px;
+    border: 2px solid #0000AA;
+    font-size: 15px;
+}
+
+.back:hover {
+    color: #0000AA;
+    background-color: #FFFFFF;
+}
