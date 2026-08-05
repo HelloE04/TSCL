@@ -1,61 +1,97 @@
 body {
     margin: 0;
+    padding: 20px;
     font-family: "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", sans-serif;
     line-height: 1.8;
     font-size: 20px;
-    width: 1000px;
-    margin: 0 auto;
-    background:#f8fafc;
+
+    width: 90%;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+
+    background: #f8fafc;
 }
 
-a {
-    color: #5865F2;              /* 藍色文字 */
-    text-decoration: none;       /* 無底線 */
-    background-color: #E7EAFD;   /* Discord 風格淺藍背景 */
-    padding: 2px 6px;
-    border-radius: 4px;
+
+/* 返回按鈕區 */
+header {
+    margin-bottom: 20px;
 }
 
-a:hover {
-    color: white;
-    background-color: #4752C4;   /* 深藍 */
-    font-weight: bold;
-}
-
-.青天 {
-    color: #0000AA;
-}
 
 .back {
-    position: absolute;
-    top: 0;
-    left: 5px;
-    top: 5px;
     display: inline-block;
     color: #FFFFFF;
     background-color: #0000AA;
     text-decoration: none;
+
     padding: 2px 5px;
     border-radius: 5px;
     border: 2px solid #0000AA;
+
     font-size: 15px;
 }
+
 
 .back:hover {
     color: #0000AA;
     background-color: #FFFFFF;
 }
 
+
+a {
+    color: #5865F2;
+    text-decoration: none;
+    background-color: #E7EAFD;
+
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+
+a:hover {
+    color: white;
+    background-color: #4752C4;
+    font-weight: bold;
+}
+
+
+.青天 {
+    color: #0000AA;
+}
+
+
+/* 不使用一般連結樣式的特殊連結 */
 .other_link {
-    color: revert;
+    color: blue;
     text-decoration: revert;
     background: transparent;
     padding: 0;
     border-radius: 0;
 }
 
+
 .other_link:hover {
-    color: revert;
+    color: blue;
     background: transparent;
     font-weight: normal;
+}
+
+
+.other_link:visited {
+    color: blue;
+}
+
+
+/* 手機版 */
+@media (max-width: 600px) {
+    body {
+        font-size: 16px;
+        width: auto;
+    }
+
+    .back {
+        font-size: 14px;
+    }
 }
