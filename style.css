@@ -1,97 +1,210 @@
+/* =====================================================================
+   臺灣學生群 · 法律文件樣式（style.css）— 淺色模式
+   排版與本站法規頁一致：窄欄（約 42rem）、條號以 CSS counter 自動編號、
+   墨綠強調色、米白底。供外部 HTML 法律頁面使用。
+   ===================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg: 210 20% 98%;
+  --fg: 221 39% 11%;
+  --muted: 220 9% 40%;
+  --accent: 240 100% 33%;
+  --accent-foreground: 0 0% 100%;
+  --border: 220 13% 88%;
+  --card: 0 0% 100%;
+  --radius: 0.75rem;
+  --font-body: 'Noto Sans TC', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-heading: 'Inter', 'Noto Sans TC', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
 body {
-    margin: 0;
-    padding: 20px;
-    font-family: "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", sans-serif;
-    line-height: 1.8;
-    font-size: 20px;
-
-    width: 90%;
-    max-width: 1000px;
-    margin-left: auto;
-    margin-right: auto;
-
-    background: #f8fafc;
+  margin: 0;
+  background: hsl(var(--bg));
+  color: hsl(var(--fg));
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.9;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
+::selection { background: hsl(var(--accent) / 0.85); color: hsl(var(--accent-foreground)); }
 
-/* 返回按鈕區 */
-header {
-    margin-bottom: 20px;
+/* 返回按鈕 */
+.legal-header {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 2rem 1rem 0;
 }
-
-
 .back {
-    display: inline-block;
-    color: #FFFFFF;
-    background-color: #0000AA;
-    text-decoration: none;
-
-    padding: 2px 5px;
-    border-radius: 5px;
-    border: 2px solid #0000AA;
-
-    font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: hsl(var(--accent-foreground));
+  background: hsl(var(--accent));
+  text-decoration: none;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  border: 1.5px solid hsl(var(--accent));
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
 }
-
-
 .back:hover {
-    color: #0000AA;
-    background-color: #FFFFFF;
+  color: hsl(var(--accent));
+  background: hsl(var(--accent-foreground));
 }
 
-
-a {
-    color: #5865F2;
-    text-decoration: none;
-    background-color: #E7EAFD;
-
-    padding: 2px 6px;
-    border-radius: 4px;
+/* 文件容器 */
+.legal-doc {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 4rem;
 }
 
+/* 公布資訊 */
+.legal-meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: hsl(var(--muted));
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2rem;
+  padding-bottom: 1.25rem;
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid hsl(var(--border));
+}
+.legal-meta b { font-weight: 500; color: hsl(var(--fg)); }
 
-a:hover {
-    color: white;
-    background-color: #4752C4;
-    font-weight: bold;
+/* 主標題 */
+.legal-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(1.6rem, 4vw, 2.25rem);
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  margin: 0 0 1.5rem;
+  text-wrap: balance;
 }
 
-
-.青天 {
-    color: #0000AA;
+/* 引言 */
+.legal-intro {
+  margin: 0 0 1.25rem;
+  color: hsl(var(--fg));
 }
 
+/* 條文：條號以 counter 自動產生 */
+.legal-articles { counter-reset: article; }
+.legal-article {
+  counter-increment: article;
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid hsl(var(--border));
+}
+.legal-article:last-child { border-bottom: none; }
+.legal-article::before {
+  content: "第 " counter(article) " 條";
+  flex: 0 0 5rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: hsl(var(--accent));
+  white-space: nowrap;
+}
+.legal-article-body { flex: 1; min-width: 0; }
+.legal-article-body p { margin: 0; }
 
-/* 不使用一般連結樣式的特殊連結 */
+/* 條文內連結 */
+.legal-article a {
+  color: hsl(var(--accent));
+  text-decoration: none;
+  background: hsl(var(--accent) / 0.08);
+  padding: 0.05em 0.4em;
+  border-radius: 0.3em;
+  transition: background 0.2s, color 0.2s;
+}
+.legal-article a:hover {
+  background: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+}
+
+/* 不使用條文連結樣式的特殊連結 */
 .other_link {
-    color: blue;
-    text-decoration: revert;
-    background: transparent;
-    padding: 0;
-    border-radius: 0;
+  color: blue !important;
+  text-decoration: revert !important;
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
 }
-
-
 .other_link:hover {
-    color: blue;
-    background: transparent;
-    font-weight: normal;
+  color: blue !important;
+  background: transparent !important;
+  font-weight: normal !important;
 }
-
-
 .other_link:visited {
-    color: blue;
+  color: blue !important;
 }
 
+/* 備註 */
+.legal-note {
+  margin: 1.75rem 0 0;
+  padding: 0.4rem 0 0.4rem 1rem;
+  border-left: 2px solid hsl(var(--accent) / 0.4);
+  color: hsl(var(--muted));
+  font-size: 0.95rem;
+}
 
-/* 手機版 */
-@media (max-width: 600px) {
-    body {
-        font-size: 16px;
-        width: auto;
-    }
+/* 段落標題（修正歷史等） */
+.legal-section-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin: 2.5rem 0 0.75rem;
+  padding-left: 0.65rem;
+  border-left: 3px solid hsl(var(--accent));
+}
 
-    .back {
-        font-size: 14px;
-    }
+/* 修正歷史清單 */
+.legal-history {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: hsl(var(--muted));
+  font-size: 0.95rem;
+}
+.legal-history li { margin: 0.25rem 0; }
+
+/* 來源列 */
+.legal-footer {
+  margin-top: 3rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid hsl(var(--border));
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: hsl(var(--muted));
+  text-align: right;
+}
+
+/* 列印 */
+@media print {
+  body { background: #fff; color: #000; font-size: 11pt; line-height: 1.7; }
+  .legal-article { break-inside: avoid; border-bottom: 1px solid #ccc; }
+  .back { display: none; }
+  .legal-footer { display: none; }
+}
+
+/* 行動裝置：條號與條文改為上下排列 */
+@media (max-width: 30rem) {
+  .legal-article { flex-direction: column; gap: 0.25rem; }
+  .legal-article::before { flex: none; }
 }
