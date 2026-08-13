@@ -1,7 +1,7 @@
 /* =====================================================================
    臺灣學生群 · 法律文件樣式（style.css）— 淺色模式
-   排版與本站法規頁一致：窄欄（約 42rem）、條號以 CSS counter 自動編號、
-   墨綠強調色、米白底。供外部 HTML 法律頁面使用。
+   排版與本站法規頁一致：窄欄（約 42rem）、條號與項/款/目/細目皆為真實
+   文字（可反白複製）、墨綠強調色、米白底。供外部 HTML 法律頁面使用。
    ===================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap');
@@ -32,6 +32,8 @@ body {
   line-height: 1.9;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  -webkit-user-select: text;
+  user-select: text;
 }
 
 ::selection { background: hsl(var(--accent) / 0.85); color: hsl(var(--accent-foreground)); }
@@ -70,18 +72,25 @@ body {
 
 /* 公布資訊 */
 .legal-meta {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  color: hsl(var(--muted));
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 2rem;
-  padding-bottom: 1.25rem;
-  margin-bottom: 2.5rem;
-  border-bottom: 1px solid hsl(var(--border));
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+    letter-spacing: 0.08em;
+    color: hsl(var(--muted));
+    display: block;
+    padding-bottom: 1.25rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid hsl(var(--border));
 }
-.legal-meta b { font-weight: 500; color: hsl(var(--fg)); }
+
+.legal-meta span {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.legal-meta b {
+    font-weight: 500;
+    color: hsl(var(--fg));
+}
 
 /* 主標題 */
 .legal-title {
@@ -100,10 +109,28 @@ body {
   color: hsl(var(--fg));
 }
 
-/* 條文：條號以 counter 自動產生 */
-.legal-articles { counter-reset: article; }
+/* 結構層級標題：編 / 章 / 節 / 款 / 目（靠左、普通字、純黑色） */
+.legal-part,
+.legal-chapter,
+.legal-section,
+.legal-subsection,
+.legal-itemgroup {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  text-align: left;
+  color: #000000;
+  margin: 1.75rem 0 0.75rem;
+  letter-spacing: 0.02em;
+}
+.legal-part { font-size: 1.1rem; margin-top: 2.25rem; }
+.legal-chapter { font-size: 1.05rem; }
+.legal-section { font-size: 1rem; }
+.legal-subsection { font-size: 0.95rem; }
+.legal-itemgroup { font-size: 0.9rem; }
+.legal-part:first-of-type { margin-top: 1.5rem; }
+
+/* 條文：條號為真實文字（.legal-no），可反白複製 */
 .legal-article {
-  counter-increment: article;
   display: flex;
   align-items: baseline;
   gap: 1rem;
@@ -111,9 +138,8 @@ body {
   border-bottom: 1px solid hsl(var(--border));
 }
 .legal-article:last-child { border-bottom: none; }
-.legal-article::before {
-  content: "第 " counter(article) " 條";
-  flex: 0 0 5rem;
+.legal-no {
+  flex: 0 0 5.5rem;
   font-family: var(--font-mono);
   font-size: 0.85rem;
   font-weight: 500;
@@ -122,7 +148,18 @@ body {
   white-space: nowrap;
 }
 .legal-article-body { flex: 1; min-width: 0; }
-.legal-article-body p { margin: 0; }
+.legal-article-body p { margin: 0 0 0.6rem; }
+.legal-article-body p:last-child { margin-bottom: 0; }
+
+/* 項 / 款 / 目 / 細目：編號為真實文字，無前置空格、無縮排 */
+.legal-items {
+  list-style: none;
+  margin: 0.4rem 0 0.6rem;
+  padding: 0;
+}
+.legal-items > li {
+  margin: 0.15rem 0;
+}
 
 /* 條文內連結 */
 .legal-article a {
@@ -138,21 +175,21 @@ body {
   color: hsl(var(--accent-foreground));
 }
 
-/* 不使用條文連結樣式的特殊連結 */
-.other_link {
-  color: blue !important;
-  text-decoration: revert !important;
-  background: transparent !important;
-  padding: 0 !important;
-  border-radius: 0 !important;
+/* 特殊連結：與站內條文連結一致的墨綠 pill 樣式 */
+.legal-article .other_link {
+  color: hsl(var(--accent));
+  text-decoration: none;
+  background: hsl(var(--accent) / 0.08);
+  padding: 0.05em 0.4em;
+  border-radius: 0.3em;
+  transition: background 0.2s, color 0.2s;
 }
-.other_link:hover {
-  color: blue !important;
-  background: transparent !important;
-  font-weight: normal !important;
+.legal-article .other_link:hover {
+  color: hsl(var(--accent-foreground));
+  background: hsl(var(--accent));
 }
-.other_link:visited {
-  color: blue !important;
+.legal-article .other_link:visited {
+  color: hsl(var(--accent));
 }
 
 /* 備註 */
@@ -206,5 +243,14 @@ body {
 /* 行動裝置：條號與條文改為上下排列 */
 @media (max-width: 30rem) {
   .legal-article { flex-direction: column; gap: 0.25rem; }
-  .legal-article::before { flex: none; }
+  .legal-no { flex: none; }
+}
+
+.修正歷史 {
+  margin-top: 3rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid hsl(var(--border));
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  letter-spacing: 0.08em;
 }
