@@ -245,12 +245,3 @@ body {
   .legal-article { flex-direction: column; gap: 0.25rem; }
   .legal-no { flex: none; }
 }
-
-.修正歷史 {
-  margin-top: 3rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid hsl(var(--border));
-  font-family: var(--font-mono);
-  font-size: 1rem;
-  letter-spacing: 0.08em;
-}
